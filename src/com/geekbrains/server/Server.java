@@ -11,14 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-    private final AuthService authService;
+    //private final AuthService authService;
+    private final JdbcApp jdbcApp;
+
+    public JdbcApp getJdbcApp() {
+        return jdbcApp;
+    }
 
     private List<ClientHandler> connectedUsers;
 
     public Server() {
-        authService = new InMemoryAuthServiceImpl();
+        //authService = new InMemoryAuthServiceImpl();
+        jdbcApp = new JdbcApp();
         try (ServerSocket server = new ServerSocket(CommonConstants.SERVER_PORT)) {
-            authService.start();
+            //authService.start();
+            jdbcApp.start();
             connectedUsers = new ArrayList<>();
             while (true) {
                 System.out.println("Сервер ожидает подключения");
@@ -29,16 +36,12 @@ public class Server {
         } catch (IOException exception) {
             System.out.println("Ошибка в работе сервера");
             exception.printStackTrace();
-        } finally {
-            if (authService != null) {
-                authService.end();
-            }
         }
     }
 
-    public AuthService getAuthService() {
-        return authService;
-    }
+    //public AuthService getAuthService() {
+      //  return authService;
+   // }
 
     public boolean isNickNameBusy(String nickName) {
         for (ClientHandler handler : connectedUsers) {
@@ -72,4 +75,5 @@ public class Server {
 
         return builder.toString();
     }
+
 }

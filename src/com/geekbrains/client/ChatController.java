@@ -89,4 +89,5 @@ public class ChatController implements Initializable {
     public void close() {
         network.closeConnection();
     }
+
 }
