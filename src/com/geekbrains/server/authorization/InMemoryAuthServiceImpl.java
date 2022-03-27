@@ -33,4 +33,5 @@ public class InMemoryAuthServiceImpl implements AuthService {
     public void end() {
         System.out.println("Сервис аутентификации отключен");
     }
+
 }
